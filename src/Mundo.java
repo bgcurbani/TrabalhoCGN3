@@ -3,24 +3,24 @@ import java.util.LinkedList;
 
 public class Mundo 
 {
-    private static Mundo mundo;
-    private Camera camera;
+    private static Mundo instance;
+    private Camera2D camera;
     private LinkedList<ObjetoGrafico> listaObjGrafico;
     
     private Mundo() 
     {
-        this.camera = new Camera();
+        this.camera = Camera2D.getInstance();
     }
     
     public static Mundo getInstance()
     {
-        if (mundo == null)
-            mundo = new Mundo();
+        if (instance == null)
+            instance = new Mundo();
         
-        return mundo;
+        return instance;
     }
 
-    public Camera getCamera() {
+    public Camera2D getCamera() {
         return this.camera;
     }
 

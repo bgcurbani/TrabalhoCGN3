@@ -1,6 +1,18 @@
-public class Camera 
+public class Camera2D 
 {
     private int minX, minY, maxX, maxY;
+    private static Camera2D instance;
+
+    private Camera2D() {
+    }
+    
+    public static Camera2D getInstance(){
+        if(instance == null){
+            instance = new Camera2D();
+        }
+        return instance;
+    }
+    
 
     public void zoomIn()
     {
