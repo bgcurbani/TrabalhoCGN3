@@ -16,6 +16,7 @@ public class Main implements GLEventListener, KeyListener {
 	private ObjetoGrafico[] objetos = { 
 			new ObjetoGrafico(),
 			new ObjetoGrafico() };
+        private Mundo mundo;
 	
 	// "render" feito logo apos a inicializacao do contexto OpenGL.
 	public void init(GLAutoDrawable drawable) {
@@ -25,7 +26,8 @@ public class Main implements GLEventListener, KeyListener {
 		glDrawable.setGL(new DebugGL(gl));
 
 		gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-
+                
+                mundo = Mundo.getInstance();
 		for (byte i=0; i < objetos.length; i++) {
 			objetos[i].atribuirGL(gl);
 		}
