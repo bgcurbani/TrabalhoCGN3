@@ -38,10 +38,10 @@ public class Main implements GLEventListener, KeyListener {
 	// "render" feito pelo cliente OpenGL.
 	public void display(GLAutoDrawable arg0) {
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT);
-		glu.gluOrtho2D(-30.0f, 30.0f, -30.0f, 30.0f);
-
+//		glu.gluOrtho2D(-30.0f, 30.0f, -30.0f, 30.0f);
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();
+		glu.gluOrtho2D(mundo.getCamera().getMinX(), mundo.getCamera().getMaxX(), mundo.getCamera().getMinY(), mundo.getCamera().getMaxY());
 
 		gl.glLineWidth(1.0f);
 		gl.glPointSize(1.0f);
@@ -115,11 +115,36 @@ public class Main implements GLEventListener, KeyListener {
 			objetos[0].escalaXYZPtoFixo(2.0, new Ponto4D(-15.0,-15.0,0.0,0.0));
 			break;
 			
-			case KeyEvent.VK_3:
-				objetos[0].rotacaoZPtoFixo(10.0, new Ponto4D(-15.0,-15.0,0.0,0.0));
-				break;
+                case KeyEvent.VK_3:
+                        objetos[0].rotacaoZPtoFixo(10.0, new Ponto4D(-15.0,-15.0,0.0,0.0));
+			break;
+                        
+                case KeyEvent.VK_I:
+                        mundo.getCamera().zoomIn();
+                        break;
+                        
+                case KeyEvent.VK_O:
+                        mundo.getCamera().zoomOut();
+                        break;
+                
+                case KeyEvent.VK_W:
+                        mundo.getCamera().panBaixo();
+                        break;
+                        
+                case KeyEvent.VK_S:
+                        mundo.getCamera().panCima();
+                        break;
+                        
+                case KeyEvent.VK_A:
+                        mundo.getCamera().panDireita();
+                        break;
+                        
+                case KeyEvent.VK_D:
+                        mundo.getCamera().panEsquerda();
+                        break;
+                        
 		}
-
+                
 		glDrawable.display();
 	}
 

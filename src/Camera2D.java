@@ -1,9 +1,17 @@
-public class Camera2D 
-{
-    private int minX, minY, maxX, maxY;
+public class Camera2D {
+    
+    private double minX, minY, maxX, maxY;
     private static Camera2D instance;
+    
+    private final double TAMANHOX = 30;
+    private final double TAMANHOY = 30;
 
     private Camera2D() {
+        setMaxX(-TAMANHOX);
+        setMinX(TAMANHOX);
+        
+        setMaxY(-TAMANHOY);
+        setMinY(TAMANHOY);
     }
     
     public static Camera2D getInstance(){
@@ -16,73 +24,73 @@ public class Camera2D
 
     public void zoomIn() {
         if (!(maxX == -10 || maxY == -10)) {
-            maxX += 10;
-            minX -= 10;
-            maxY += 10;
-            minY -= 10;
+            setMaxX(getMaxX() + 10);
+            setMinX(getMinX() - 10);
+            setMaxY(getMaxY() + 10);
+            setMinY(getMinY() - 10);
         }
         else
             System.out.println("Limite de zoom-in");
     }
     
     public void zoomOut() {
-        maxX -= 10;
-        minX += 10;
-        maxY -= 10;
-        minY += 10;
+        setMaxX(getMaxX() - 10);
+        setMinX(getMinX() + 10);
+        setMaxY(getMaxY() - 10);
+        setMinY(getMinY() + 10);
     }
     
     public void panCima() {
-        maxY -= 10;
-        minY -= 10;
+        setMaxY(getMaxY() - 10);
+        setMinY(getMinY() - 10);
     }
     
     public void panBaixo() {
-        maxY += 10;
-        minY += 10;
+        setMaxY(getMaxY() + 10);
+        setMinY(getMinY() + 10);
     }
     
     public void panEsquerda() {
-        maxX += 10;
-        minX += 10;
+        setMaxX(getMaxX() + 10);
+        setMinX(getMinX() + 10);
     }
     
     public void panDireita() {
-        maxX -= 10;
-        maxX -= 10;
+        setMaxX(getMaxX() - 10);
+        setMinX(getMinX() - 10);
     }
     
-    public int getMinX() {
-        return minX;
-    }
-
-    public void setMinX(int minX) {
-        this.minX = minX;
-    }
-
-    public int getMinY() {
-        return minY;
-    }
-
-    public void setMinY(int minY) {
-        this.minY = minY;
-    }
-
-    public int getMaxX() {
-        return maxX;
-    }
-
-    public void setMaxX(int maxX) {
+    private void setMaxX(double maxX) {
         this.maxX = maxX;
     }
-
-    public int getMaxY() {
-        return maxY;
+    
+    private void setMinX(double minX) {
+        this.minX = minX;
     }
-
-    public void setMaxY(int maxY) {
+    
+    private void setMaxY(double maxY) {
         this.maxY = maxY;
     }
     
+    private void setMinY(double minY) {
+        this.minY = minY;
+    }
+
+    public double getMaxX() {
+        return maxX;
+    }
     
+    public double getMinX() {
+        return minX;
+    }
+    
+    public double getMaxY() {
+        return maxY;
+    }
+    
+    public double getMinY() {
+        return minY;
+    }
+
+
 }
