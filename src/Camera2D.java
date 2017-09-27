@@ -5,15 +5,15 @@ public class Camera2D {
     
     //por garantia, usar multiplos de 5 no zoom
     private final double TAMANHO_ZOOM = 10;
-    private final double TAMANHOX = 30;
-    private final double TAMANHOY = 30;
+    private double TAMANHOX = 400;
+    private double TAMANHOY = 400;
 
     private Camera2D() {
         setMaxX(-TAMANHOX);
         setMinX(TAMANHOX);
         
-        setMaxY(-TAMANHOY);
-        setMinY(TAMANHOY);
+        setMaxY(TAMANHOY);
+        setMinY(-TAMANHOY);
     }
     
     public static Camera2D getInstance(){
@@ -23,13 +23,20 @@ public class Camera2D {
         return instance;
     }
     
+    public void setTAMANHOX(double TAMANHOX) {
+        this.TAMANHOX = TAMANHOX;
+    }
+
+    public void setTAMANHOY(double TAMANHOY) {
+        this.TAMANHOY = TAMANHOY;
+    }
 
     public void zoomIn() {
         if (!(maxX == -10 || maxY == -10)) {
             setMaxX(getMaxX() + TAMANHO_ZOOM);
             setMinX(getMinX() - TAMANHO_ZOOM);
-            setMaxY(getMaxY() + TAMANHO_ZOOM);
-            setMinY(getMinY() - TAMANHO_ZOOM);
+            setMaxY(getMaxY() - TAMANHO_ZOOM);
+            setMinY(getMinY() + TAMANHO_ZOOM);
         }
         else
             System.out.println("Limite de zoom-in");
@@ -38,8 +45,8 @@ public class Camera2D {
     public void zoomOut() {
         setMaxX(getMaxX() - TAMANHO_ZOOM);
         setMinX(getMinX() + TAMANHO_ZOOM);
-        setMaxY(getMaxY() - TAMANHO_ZOOM);
-        setMinY(getMinY() + TAMANHO_ZOOM);
+        setMaxY(getMaxY() + TAMANHO_ZOOM);
+        setMinY(getMinY() - TAMANHO_ZOOM);
     }
     
     public void panCima() {

@@ -15,7 +15,7 @@ public class Frame extends JFrame{
 	public Frame() {		
 		// Cria o frame.
 		super("CG-N3_Trasnformacao");   
-		setBounds(300,250,janelaLargura,janelaAltura+22);  // 400 + 22 da borda do t’tulo da janela
+		setBounds(300,250,janelaLargura,janelaAltura+22);  // 400 + 22 da borda do tï¿½tulo da janela
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 
@@ -35,6 +35,8 @@ public class Frame extends JFrame{
 		add(canvas,BorderLayout.CENTER);
 		canvas.addGLEventListener(renderer);        
 		canvas.addKeyListener(renderer);
+                canvas.addMouseListener(renderer);
+                canvas.addMouseMotionListener(renderer);
 		canvas.requestFocus();			
 	}		
 	
