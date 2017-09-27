@@ -3,6 +3,8 @@ public class Camera2D {
     private double minX, minY, maxX, maxY;
     private static Camera2D instance;
     
+    //por garantia, usar multiplos de 5 no zoom
+    private final double TAMANHO_ZOOM = 10;
     private final double TAMANHOX = 30;
     private final double TAMANHOY = 30;
 
@@ -24,40 +26,40 @@ public class Camera2D {
 
     public void zoomIn() {
         if (!(maxX == -10 || maxY == -10)) {
-            setMaxX(getMaxX() + 10);
-            setMinX(getMinX() - 10);
-            setMaxY(getMaxY() + 10);
-            setMinY(getMinY() - 10);
+            setMaxX(getMaxX() + TAMANHO_ZOOM);
+            setMinX(getMinX() - TAMANHO_ZOOM);
+            setMaxY(getMaxY() + TAMANHO_ZOOM);
+            setMinY(getMinY() - TAMANHO_ZOOM);
         }
         else
             System.out.println("Limite de zoom-in");
     }
     
     public void zoomOut() {
-        setMaxX(getMaxX() - 10);
-        setMinX(getMinX() + 10);
-        setMaxY(getMaxY() - 10);
-        setMinY(getMinY() + 10);
+        setMaxX(getMaxX() - TAMANHO_ZOOM);
+        setMinX(getMinX() + TAMANHO_ZOOM);
+        setMaxY(getMaxY() - TAMANHO_ZOOM);
+        setMinY(getMinY() + TAMANHO_ZOOM);
     }
     
     public void panCima() {
-        setMaxY(getMaxY() - 10);
-        setMinY(getMinY() - 10);
+        setMaxY(getMaxY() - TAMANHO_ZOOM);
+        setMinY(getMinY() - TAMANHO_ZOOM);
     }
     
     public void panBaixo() {
-        setMaxY(getMaxY() + 10);
-        setMinY(getMinY() + 10);
+        setMaxY(getMaxY() + TAMANHO_ZOOM);
+        setMinY(getMinY() + TAMANHO_ZOOM);
     }
     
     public void panEsquerda() {
-        setMaxX(getMaxX() + 10);
-        setMinX(getMinX() + 10);
+        setMaxX(getMaxX() + TAMANHO_ZOOM);
+        setMinX(getMinX() + TAMANHO_ZOOM);
     }
     
     public void panDireita() {
-        setMaxX(getMaxX() - 10);
-        setMinX(getMinX() - 10);
+        setMaxX(getMaxX() - TAMANHO_ZOOM);
+        setMinX(getMinX() - TAMANHO_ZOOM);
     }
     
     private void setMaxX(double maxX) {
