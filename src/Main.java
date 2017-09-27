@@ -1,5 +1,8 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.media.opengl.DebugGL;
 import javax.media.opengl.GL;
@@ -7,7 +10,7 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 
-public class Main implements GLEventListener, KeyListener {
+public class Main implements GLEventListener, KeyListener, MouseListener, MouseMotionListener {
 	private GL gl;
 	private GLU glu;
 	private GLAutoDrawable glDrawable;
@@ -16,8 +19,9 @@ public class Main implements GLEventListener, KeyListener {
 	private ObjetoGrafico[] objetos = { 
 			new ObjetoGrafico(),
 			new ObjetoGrafico() };
+        private ObjetoGrafico objSelecionado = objetos[0];
         private Mundo mundo;
-	
+        
 	// "render" feito logo apos a inicializacao do contexto OpenGL.
 	public void init(GLAutoDrawable drawable) {
 		glDrawable = drawable;
@@ -41,7 +45,7 @@ public class Main implements GLEventListener, KeyListener {
 //		glu.gluOrtho2D(-30.0f, 30.0f, -30.0f, 30.0f);
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();
-		glu.gluOrtho2D(mundo.getCamera().getMinX(), mundo.getCamera().getMaxX(), mundo.getCamera().getMinY(), mundo.getCamera().getMaxY());
+		glu.gluOrtho2D(mundo.getCamera().getMaxX(), mundo.getCamera().getMinX(), mundo.getCamera().getMaxY(), mundo.getCamera().getMinY());
 
 		gl.glLineWidth(1.0f);
 		gl.glPointSize(1.0f);
@@ -59,13 +63,13 @@ public class Main implements GLEventListener, KeyListener {
 	public void desenhaSRU() {
 		gl.glColor3f(1.0f, 0.0f, 0.0f);
 		gl.glBegin(GL.GL_LINES);
-			gl.glVertex2f(-20.0f, 0.0f);
-			gl.glVertex2f(20.0f, 0.0f);
+			gl.glVertex2f(-200.0f, 0.0f);
+			gl.glVertex2f(200.0f, 0.0f);
 		gl.glEnd();
 		gl.glColor3f(0.0f, 1.0f, 0.0f);
 		gl.glBegin(GL.GL_LINES);
-			gl.glVertex2f(0.0f, -20.0f);
-			gl.glVertex2f(0.0f, 20.0f);
+			gl.glVertex2f(0.0f, -200.0f);
+			gl.glVertex2f(0.0f, 200.0f);
 		gl.glEnd();
 	}
 	
@@ -154,7 +158,9 @@ public class Main implements GLEventListener, KeyListener {
 	    gl.glViewport(0, 0, width, height);
         gl.glMatrixMode(GL.GL_PROJECTION);
         gl.glLoadIdentity();
-		// System.out.println(" --- reshape ---");
+		 System.out.println(" --- reshape ---");
+                 System.out.println(width);
+                 System.out.println(height);
 	}
 
 	// metodo definido na interface GLEventListener.
@@ -171,5 +177,61 @@ public class Main implements GLEventListener, KeyListener {
 	public void keyTyped(KeyEvent arg0) {
 		// System.out.println(" --- keyTyped ---");
 	}
+
+        @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        
+        int x = e.getX();
+        int y = e.getY();
+        
+        objSelecionado.AdicionaPonto((x - 191), (y - 191));
+        glDrawable.display();
+//	    if ((e.getModifiers() & e.BUTTON1_MASK) != 0) {
+//        antigoX = e.getX();
+//        antigoY = e.getY();
+//	    }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+//                int movtoX = e.getX() - antigoX;
+//                int movtoY = e.getY() - antigoY;
+//                ponto1x += movtoX;
+//                ponto1y -= movtoY;
+//
+//                //Dump ...
+//                System.out.println("posMouse: " + movtoX + " / " + movtoY);
+//
+//                antigoX = e.getX();
+//                antigoY = e.getY();
+//
+//                glDrawable.display();
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        System.out.println("Mouse X: "+ (e.getX()-191));
+        System.out.println("Mouse Y: "+ (e.getY()-191));
+        System.out.println("---------------------");
+        
+    }
 
 }
