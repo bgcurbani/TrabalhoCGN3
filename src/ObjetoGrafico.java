@@ -5,7 +5,7 @@ public final class ObjetoGrafico {
     GL gl;
     private float tamanho = 2.0f;
 
-    private int primitiva = GL.GL_LINE_LOOP;
+    private int primitiva = GL.GL_LINE_STRIP;
     private LinkedList<Ponto4D> vertices = new LinkedList();
 
 
@@ -145,5 +145,10 @@ public final class ObjetoGrafico {
             this.primitiva = GL.GL_LINE_LOOP;
     }
 
-}
+    public void setPronto() {
+        if(vertices.size() >= 4 && this.primitiva == GL.GL_LINE_STRIP){
+            TrocaPrimitiva();
+        }
+    }
 
+}

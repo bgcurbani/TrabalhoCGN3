@@ -16,9 +16,9 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 	private GLAutoDrawable glDrawable;
 
 //	private ObjetoGrafico objeto = new ObjetoGrafico();
-	private ObjetoGrafico[] objetos = { 
-			new ObjetoGrafico(),
-			new ObjetoGrafico() };
+	private ObjetoGrafico[] objetos = {
+                        new ObjetoGrafico(),
+			new ObjetoGrafico()};
         private ObjetoGrafico objSelecionado = objetos[0];
         private Mundo mundo;
         
@@ -189,11 +189,24 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
     @Override
     public void mousePressed(MouseEvent e) {
         
-        int x = e.getX();
-        int y = e.getY();
-        
-        objSelecionado.AdicionaPonto((x - 191), (y - 191));
-        glDrawable.display();
+        if (objSelecionado != null) {
+            switch (e.getButton()) {
+                case MouseEvent.BUTTON1: {
+                    int y = e.getY();
+                    int x = e.getX();
+                    objSelecionado.AdicionaPonto((x - 191) * 2.08, (y - 191) * 2.08);
+                    break;
+                }
+
+                case MouseEvent.BUTTON3: {
+                    objSelecionado.setPronto();
+                    objSelecionado = null;
+                    break;
+                }
+            }
+                    glDrawable.display();
+
+        }
 //	    if ((e.getModifiers() & e.BUTTON1_MASK) != 0) {
 //        antigoX = e.getX();
 //        antigoY = e.getY();
@@ -228,8 +241,8 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        System.out.println("Mouse X: "+ (e.getX()-191));
-        System.out.println("Mouse Y: "+ (e.getY()-191));
+        System.out.println("Mouse X: "+ (e.getX()-191)* 2.08);
+        System.out.println("Mouse Y: "+ (e.getY()-191)* 2.08);
         System.out.println("---------------------");
         
     }
