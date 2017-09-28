@@ -6,7 +6,7 @@ public final class ObjetoGrafico {
     private float tamanho = 2.0f;
 
     private int primitiva = GL.GL_LINE_STRIP;
-    private LinkedList<Ponto4D> vertices = new LinkedList();
+    private LinkedList<Ponto4D> vertices;
 
 
 //	private int primitiva = GL.GL_POINTS;
@@ -23,6 +23,7 @@ public final class ObjetoGrafico {
 //	private double anguloGlobal = 0.0;
 
     public ObjetoGrafico() {
+        vertices = new LinkedList();
     }
 
     public void atribuirGL(GL gl) {
@@ -126,15 +127,20 @@ public final class ObjetoGrafico {
 
     public void AdicionaPonto(double x, double y) {
         Ponto4D ponto = new Ponto4D();
+        Ponto4D ponto2 = new Ponto4D();
         ponto.atribuirX(x);
         ponto.atribuirY(y);
+        
+        ponto2.atribuirX(x);
+        ponto2.atribuirY(y);
+        
 
         if (vertices.isEmpty()) {
             vertices.add(ponto);
-            vertices.add(ponto);
+            vertices.add(ponto2);
         } else {
             vertices.set(vertices.size() - 1, ponto);
-            vertices.add(ponto);
+            vertices.add(ponto2);
           }
     }
 
@@ -149,6 +155,10 @@ public final class ObjetoGrafico {
         if(vertices.size() >= 4 && this.primitiva == GL.GL_LINE_STRIP){
             TrocaPrimitiva();
         }
+    }
+
+    public LinkedList<Ponto4D> getVertices() {
+        return vertices;
     }
 
 }

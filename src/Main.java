@@ -16,10 +16,11 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 	private GLAutoDrawable glDrawable;
 
 //	private ObjetoGrafico objeto = new ObjetoGrafico();
-	private ObjetoGrafico[] objetos = {
-                        new ObjetoGrafico(),
-			new ObjetoGrafico()};
-        private ObjetoGrafico objSelecionado = objetos[0];
+//	private ObjetoGrafico[] objetos = {
+//                        new ObjetoGrafico(),
+//			new ObjetoGrafico()};
+        //private ObjetoGrafico objSelecionado = objetos[0];
+        private ObjetoGrafico objSelecionado = null;
         private Mundo mundo;
         
 	// "render" feito logo apos a inicializacao do contexto OpenGL.
@@ -32,9 +33,9 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 		gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
                 
                 mundo = Mundo.getInstance();
-		for (byte i=0; i < objetos.length; i++) {
-			objetos[i].atribuirGL(gl);
-		}
+//		for (byte i=0; i < objetos.length; i++) {
+//			objetos[i].atribuirGL(gl);
+//		}
 //		objeto.atribuirGL(gl);
 	}
 
@@ -51,8 +52,9 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 		gl.glPointSize(1.0f);
 
 		desenhaSRU();
-		for (byte i=0; i < objetos.length; i++) {
-			objetos[i].desenha();
+		for (byte i=0; i < mundo.getListaObjGrafico().size(); i++) {
+                    mundo.getListaObjGrafico().get(i).desenha();
+//			objetos[i].desenha();
 		}
 
 //		objeto.desenha();
@@ -76,53 +78,53 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 	public void keyPressed(KeyEvent e) {
 
 		switch (e.getKeyCode()) {
-		case KeyEvent.VK_P:
-			objetos[0].exibeVertices();
-			break;
-		case KeyEvent.VK_M:
-			objetos[0].exibeMatriz();
-			break;
-
-		case KeyEvent.VK_R:
-			objetos[0].atribuirIdentidade();
-			break;
-
-		case KeyEvent.VK_RIGHT:
-			objetos[0].translacaoXYZ(2.0,0.0,0.0);
-			break;
-		case KeyEvent.VK_LEFT:
-			objetos[0].translacaoXYZ(-2.0,0.0,0.0);
-			break;
-		case KeyEvent.VK_UP:
-			objetos[0].translacaoXYZ(0.0,2.0,0.0);
-			break;
-		case KeyEvent.VK_DOWN:
-			objetos[0].translacaoXYZ(0.0,-2.0,0.0);
-			break;
-
-		case KeyEvent.VK_PAGE_UP:
-			objetos[0].escalaXYZ(2.0,2.0);
-			break;
-		case KeyEvent.VK_PAGE_DOWN:
-			objetos[0].escalaXYZ(0.5,0.5);
-			break;
-
-		case KeyEvent.VK_HOME:
-//			objetos[0].RoracaoZ();
-			break;
-
-		case KeyEvent.VK_1:
-			objetos[0].escalaXYZPtoFixo(0.5, new Ponto4D(-15.0,-15.0,0.0,0.0));
-			break;
-			
-		case KeyEvent.VK_2:
-			objetos[0].escalaXYZPtoFixo(2.0, new Ponto4D(-15.0,-15.0,0.0,0.0));
-			break;
-			
-                case KeyEvent.VK_3:
-                        objetos[0].rotacaoZPtoFixo(10.0, new Ponto4D(-15.0,-15.0,0.0,0.0));
-			break;
-                        
+//		case KeyEvent.VK_P:
+//			objetos[0].exibeVertices();
+//			break;
+//		case KeyEvent.VK_M:
+//			objetos[0].exibeMatriz();
+//			break;
+//
+//		case KeyEvent.VK_R:
+//			objetos[0].atribuirIdentidade();
+//			break;
+//
+//		case KeyEvent.VK_RIGHT:
+//			objetos[0].translacaoXYZ(2.0,0.0,0.0);
+//			break;
+//		case KeyEvent.VK_LEFT:
+//			objetos[0].translacaoXYZ(-2.0,0.0,0.0);
+//			break;
+//		case KeyEvent.VK_UP:
+//			objetos[0].translacaoXYZ(0.0,2.0,0.0);
+//			break;
+//		case KeyEvent.VK_DOWN:
+//			objetos[0].translacaoXYZ(0.0,-2.0,0.0);
+//			break;
+//
+//		case KeyEvent.VK_PAGE_UP:
+//			objetos[0].escalaXYZ(2.0,2.0);
+//			break;
+//		case KeyEvent.VK_PAGE_DOWN:
+//			objetos[0].escalaXYZ(0.5,0.5);
+//			break;
+//
+//		case KeyEvent.VK_HOME:
+////			objetos[0].RoracaoZ();
+//			break;
+//
+//		case KeyEvent.VK_1:
+//			objetos[0].escalaXYZPtoFixo(0.5, new Ponto4D(-15.0,-15.0,0.0,0.0));
+//			break;
+//			
+//		case KeyEvent.VK_2:
+//			objetos[0].escalaXYZPtoFixo(2.0, new Ponto4D(-15.0,-15.0,0.0,0.0));
+//			break;
+//			
+//                case KeyEvent.VK_3:
+//                        objetos[0].rotacaoZPtoFixo(10.0, new Ponto4D(-15.0,-15.0,0.0,0.0));
+//			break;
+//                        
                 case KeyEvent.VK_I:
                         mundo.getCamera().zoomIn();
                         break;
@@ -207,6 +209,18 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
                     glDrawable.display();
 
         }
+        else {
+            objSelecionado = new ObjetoGrafico();
+            int y = e.getY();
+            int x = e.getX();
+            objSelecionado.AdicionaPonto((x - 191) * 2.08, (y - 191) * 2.08);
+            objSelecionado.atribuirGL(gl);
+//            objSelecionado = novoObj;
+            mundo.getListaObjGrafico().add(objSelecionado);
+            glDrawable.display();
+        }
+        
+        
 //	    if ((e.getModifiers() & e.BUTTON1_MASK) != 0) {
 //        antigoX = e.getX();
 //        antigoY = e.getY();
@@ -245,6 +259,11 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
         System.out.println("Mouse Y: "+ (e.getY()-191)* 2.08);
         System.out.println("---------------------");
         
+        if (objSelecionado != null) {
+            objSelecionado.getVertices().getLast().atribuirX((e.getX() - 191) * 2.08);
+            objSelecionado.getVertices().getLast().atribuirY((e.getY() - 191) * 2.08);
+            glDrawable.display();
+        }
     }
 
 }

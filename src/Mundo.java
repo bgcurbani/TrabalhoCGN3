@@ -10,6 +10,7 @@ public class Mundo
     private Mundo() 
     {
         this.camera = Camera2D.getInstance();
+        listaObjGrafico = new LinkedList<>();
     }
     
     public static Mundo getInstance()
