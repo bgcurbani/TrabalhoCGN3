@@ -1,20 +1,16 @@
-
 import java.util.LinkedList;
 
-public class Mundo 
-{
+public class Mundo {
     private static Mundo instance;
     private Camera2D camera;
     private LinkedList<ObjetoGrafico> listaObjGrafico;
     
-    private Mundo() 
-    {
+    private Mundo() {
         this.camera = Camera2D.getInstance();
         listaObjGrafico = new LinkedList<>();
     }
     
-    public static Mundo getInstance()
-    {
+    public static Mundo getInstance() {
         if (instance == null)
             instance = new Mundo();
         

@@ -23,13 +23,6 @@ public class Camera2D {
         return instance;
     }
     
-    public void setTAMANHOX(double TAMANHOX) {
-        this.TAMANHOX = TAMANHOX;
-    }
-
-    public void setTAMANHOY(double TAMANHOY) {
-        this.TAMANHOY = TAMANHOY;
-    }
 
     public void zoomIn() {
         if (!(maxX == -10 || maxY == -10)) {
@@ -84,6 +77,14 @@ public class Camera2D {
     private void setMinY(double minY) {
         this.minY = minY;
     }
+    
+    public void setTAMANHOX(double TAMANHOX) {
+        this.TAMANHOX = TAMANHOX;
+    }
+
+    public void setTAMANHOY(double TAMANHOY) {
+        this.TAMANHOY = TAMANHOY;
+    }
 
     public double getMaxX() {
         return maxX;
@@ -101,5 +102,12 @@ public class Camera2D {
         return minY;
     }
 
+    public double getTAMANHOX() {
+        return TAMANHOX;
+    }
+
+    public double getTAMANHOY() {
+        return TAMANHOY;
+    }
 
 }

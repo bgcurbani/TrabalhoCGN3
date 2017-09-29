@@ -7,6 +7,7 @@ public final class ObjetoGrafico {
 
     private int primitiva = GL.GL_LINE_STRIP;
     private LinkedList<Ponto4D> vertices;
+    private boolean ehLineLoop;
 
 
 //	private int primitiva = GL.GL_POINTS;
@@ -144,17 +145,21 @@ public final class ObjetoGrafico {
           }
     }
 
-    public void TrocaPrimitiva() {
-        if (this.primitiva == GL.GL_LINE_LOOP)
-            this.primitiva = GL.GL_LINE_STRIP;
-        else
+    public void TrocaPrimitiva(boolean desenhaLoop, boolean fecha) {
+        ehLineLoop = desenhaLoop;
+        
+        if (fecha && desenhaLoop)
             this.primitiva = GL.GL_LINE_LOOP;
+        else
+            this.primitiva = GL.GL_LINE_STRIP;
     }
 
     public void setPronto() {
-        if(vertices.size() >= 4 && this.primitiva == GL.GL_LINE_STRIP){
-            TrocaPrimitiva();
+        if(vertices.size() >= 3 && this.ehLineLoop){
+            TrocaPrimitiva(ehLineLoop, true);
         }
+        
+        // TODO: Criar bbox e varer pontos pegando maior/menor x e y.
     }
 
     public LinkedList<Ponto4D> getVertices() {

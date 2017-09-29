@@ -14,6 +14,7 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 	private GL gl;
 	private GLU glu;
 	private GLAutoDrawable glDrawable;
+        private boolean desenhaLoop = false;
 
 //	private ObjetoGrafico objeto = new ObjetoGrafico();
 //	private ObjetoGrafico[] objetos = {
@@ -148,7 +149,10 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
                 case KeyEvent.VK_D:
                         mundo.getCamera().panEsquerda();
                         break;
-                        
+                    
+                case KeyEvent.VK_SPACE:
+                    desenhaLoop = !desenhaLoop;
+                    break;
 		}
                 
 		glDrawable.display();
@@ -158,11 +162,15 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 	// "render" feito depois que a janela foi redimensionada.
 	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
 	    gl.glViewport(0, 0, width, height);
-        gl.glMatrixMode(GL.GL_PROJECTION);
-        gl.glLoadIdentity();
-		 System.out.println(" --- reshape ---");
-                 System.out.println(width);
-                 System.out.println(height);
+            gl.glMatrixMode(GL.GL_PROJECTION);
+            gl.glLoadIdentity();
+        
+            mundo.getCamera().setTAMANHOX(width);
+            mundo.getCamera().setTAMANHOY(height);
+            
+            System.out.println(" --- reshape ---");
+            System.out.println(width);
+            System.out.println(height);
 	}
 
 	// metodo definido na interface GLEventListener.
@@ -196,11 +204,13 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
                 case MouseEvent.BUTTON1: {
                     int y = e.getY();
                     int x = e.getX();
-                    objSelecionado.AdicionaPonto((x - 191) * 2.08, (y - 191) * 2.08);
+                    objSelecionado.TrocaPrimitiva(desenhaLoop, false);
+                    objSelecionado.AdicionaPonto((x - mundo.getCamera().getTAMANHOX()/2) * 2.08, (y - mundo.getCamera().getTAMANHOY()/2) * 2.08);
                     break;
                 }
 
                 case MouseEvent.BUTTON3: {
+                    objSelecionado.TrocaPrimitiva(desenhaLoop, false);
                     objSelecionado.setPronto();
                     objSelecionado = null;
                     break;
@@ -213,8 +223,11 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
             objSelecionado = new ObjetoGrafico();
             int y = e.getY();
             int x = e.getX();
-            objSelecionado.AdicionaPonto((x - 191) * 2.08, (y - 191) * 2.08);
+            
+            objSelecionado.TrocaPrimitiva(desenhaLoop, false);
+            objSelecionado.AdicionaPonto((x - mundo.getCamera().getTAMANHOX()/2)* 2.08, (y - mundo.getCamera().getTAMANHOY()/2)* 2.08);
             objSelecionado.atribuirGL(gl);
+            
 //            objSelecionado = novoObj;
             mundo.getListaObjGrafico().add(objSelecionado);
             glDrawable.display();
@@ -255,13 +268,17 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        System.out.println("Mouse X: "+ (e.getX()-191)* 2.08);
-        System.out.println("Mouse Y: "+ (e.getY()-191)* 2.08);
-        System.out.println("---------------------");
+        
+//        System.out.println("Mouse X: "+ (e.getX()-191)* 2.08);
+//        System.out.println("Mouse Y: "+ (e.getY()-191)* 2.08);
+//        System.out.println("---------------------");
+//        
+        
+        
         
         if (objSelecionado != null) {
-            objSelecionado.getVertices().getLast().atribuirX((e.getX() - 191) * 2.08);
-            objSelecionado.getVertices().getLast().atribuirY((e.getY() - 191) * 2.08);
+            objSelecionado.getVertices().getLast().atribuirX((e.getX() - mundo.getCamera().getTAMANHOX()/2) * 2.08);
+            objSelecionado.getVertices().getLast().atribuirY((e.getY() - mundo.getCamera().getTAMANHOY()/2) * 2.08);
             glDrawable.display();
         }
     }
