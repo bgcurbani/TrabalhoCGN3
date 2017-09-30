@@ -7,6 +7,7 @@ public final class ObjetoGrafico {
 
     private int primitiva = GL.GL_LINE_STRIP;
     private LinkedList<Ponto4D> vertices;
+    BoundingBox bBox = null;
     private boolean ehLineLoop;
 
 
@@ -158,12 +159,59 @@ public final class ObjetoGrafico {
         if(vertices.size() >= 3 && this.ehLineLoop){
             TrocaPrimitiva(ehLineLoop, true);
         }
-        
+            criaBBox();
         // TODO: Criar bbox e varer pontos pegando maior/menor x e y.
     }
 
     public LinkedList<Ponto4D> getVertices() {
         return vertices;
+    }
+
+    public BoundingBox getBbox(){
+        return bBox;
+    }
+    
+    private void criaBBox() {
+        double menorX, maiorX;
+        double menorY, maiorY;
+        double menorZ, maiorZ;
+        Ponto4D pontoAtual = vertices.get(0);
+        menorX = maiorX = pontoAtual.obterX();
+        menorY = maiorY = pontoAtual.obterY();
+        menorZ = maiorZ = pontoAtual.obterZ();
+        
+        for (int i = 1; i < vertices.size(); i++) {
+            pontoAtual = vertices.get(i);
+            
+            if (menorX > pontoAtual.obterX()) {
+                menorX = pontoAtual.obterX();
+            } else {
+                if (maiorX < pontoAtual.obterX()) {
+                    maiorX = pontoAtual.obterX();
+                }
+            }
+            
+            if (menorY > pontoAtual.obterY()) {
+                menorY = pontoAtual.obterY();
+            } else {
+                if (maiorY < pontoAtual.obterY()) {
+                    maiorY = pontoAtual.obterY();
+                }
+            }
+            
+            if (menorZ > pontoAtual.obterZ()) {
+                menorZ = pontoAtual.obterZ();
+            } else {
+                if (maiorZ < pontoAtual.obterZ()) {
+                    maiorZ = pontoAtual.obterZ();
+                }
+            }
+            
+        }
+        
+        bBox = new BoundingBox(menorX, menorY, menorZ, maiorX, maiorY, maiorZ);
+        bBox.processarCentroBBox();
+
     }
 
 }

@@ -42,21 +42,24 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 
 	// metodo definido na interface GLEventListener.
 	// "render" feito pelo cliente OpenGL.
-	public void display(GLAutoDrawable arg0) {
-		gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+    public void display(GLAutoDrawable arg0) {
+        gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 //		glu.gluOrtho2D(-30.0f, 30.0f, -30.0f, 30.0f);
-		gl.glMatrixMode(GL.GL_MODELVIEW);
-		gl.glLoadIdentity();
-		glu.gluOrtho2D(mundo.getCamera().getMaxX(), mundo.getCamera().getMinX(), mundo.getCamera().getMaxY(), mundo.getCamera().getMinY());
+        gl.glMatrixMode(GL.GL_MODELVIEW);
+        gl.glLoadIdentity();
+        glu.gluOrtho2D(mundo.getCamera().getMaxX(), mundo.getCamera().getMinX(), mundo.getCamera().getMaxY(), mundo.getCamera().getMinY());
 
-		gl.glLineWidth(1.0f);
-		gl.glPointSize(1.0f);
+        gl.glLineWidth(1.0f);
+        gl.glPointSize(1.0f);
 
-		desenhaSRU();
-		for (byte i=0; i < mundo.getListaObjGrafico().size(); i++) {
-                    mundo.getListaObjGrafico().get(i).desenha();
+        desenhaSRU();
+        for (byte i = 0; i < mundo.getListaObjGrafico().size(); i++) {
+            mundo.getListaObjGrafico().get(i).desenha();
 //			objetos[i].desenha();
-		}
+        }
+        if (objSelecionado != null && objSelecionado.getBbox() != null) {
+            objSelecionado.getBbox().desenharOpenGLBBox(gl);
+        }
 
 //		objeto.desenha();
 
@@ -212,6 +215,7 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
                 case MouseEvent.BUTTON3: {
                     objSelecionado.TrocaPrimitiva(desenhaLoop, false);
                     objSelecionado.setPronto();
+                    objSelecionado.getBbox().desenharOpenGLBBox(gl);
                     objSelecionado = null;
                     break;
                 }
@@ -228,7 +232,6 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
             objSelecionado.AdicionaPonto((x - mundo.getCamera().getTAMANHOX()/2)* 2.08, (y - mundo.getCamera().getTAMANHOY()/2)* 2.08);
             objSelecionado.atribuirGL(gl);
             
-//            objSelecionado = novoObj;
             mundo.getListaObjGrafico().add(objSelecionado);
             glDrawable.display();
         }
@@ -273,8 +276,6 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 //        System.out.println("Mouse Y: "+ (e.getY()-191)* 2.08);
 //        System.out.println("---------------------");
 //        
-        
-        
         
         if (objSelecionado != null) {
             objSelecionado.getVertices().getLast().atribuirX((e.getX() - mundo.getCamera().getTAMANHOX()/2) * 2.08);
