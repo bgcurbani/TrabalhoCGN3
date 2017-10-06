@@ -7,8 +7,9 @@ public final class ObjetoGrafico {
 
     private int primitiva = GL.GL_LINE_STRIP;
     private LinkedList<Ponto4D> vertices;
-    BoundingBox bBox = null;
+    private BoundingBox bBox = null;
     private boolean ehLineLoop;
+    private boolean isPronto=false;
 
 
 //	private int primitiva = GL.GL_POINTS;
@@ -159,14 +160,22 @@ public final class ObjetoGrafico {
         if(vertices.size() >= 3 && this.ehLineLoop){
             TrocaPrimitiva(ehLineLoop, true);
         }
-            criaBBox();
-        // TODO: Criar bbox e varer pontos pegando maior/menor x e y.
+        isPronto = true;
+        criaBBox();
     }
 
     public LinkedList<Ponto4D> getVertices() {
         return vertices;
     }
 
+    public boolean getPrimitiva(){
+        return ehLineLoop;
+    }
+    
+    public boolean isPronto(){
+        return isPronto;
+    }
+    
     public BoundingBox getBbox(){
         return bBox;
     }

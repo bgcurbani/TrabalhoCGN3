@@ -3,6 +3,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.LinkedList;
 
 import javax.media.opengl.DebugGL;
 import javax.media.opengl.GL;
@@ -155,6 +156,10 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
                     
                 case KeyEvent.VK_SPACE:
                     desenhaLoop = !desenhaLoop;
+                    if (objSelecionado != null) {
+                        desenhaLoop = !objSelecionado.getPrimitiva();
+                        objSelecionado.TrocaPrimitiva(desenhaLoop, true);
+                    }
                     break;
 		}
                 
@@ -202,39 +207,76 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
     @Override
     public void mousePressed(MouseEvent e) {
         
-        if (objSelecionado != null) {
-            switch (e.getButton()) {
-                case MouseEvent.BUTTON1: {
-                    int y = e.getY();
-                    int x = e.getX();
-                    objSelecionado.TrocaPrimitiva(desenhaLoop, false);
-                    objSelecionado.AdicionaPonto((x - mundo.getCamera().getTAMANHOX()/2) * 2.08, (y - mundo.getCamera().getTAMANHOY()/2) * 2.08);
-                    break;
-                }
+        // clica com o mouse, se não tiver nada no ponto cria obj
+        // clica com o mouse, achou um poligono marca como selecionado e
+        // desenha bBox
+        double x = (e.getX() - mundo.getCamera().getTAMANHOX()/2) * 2.08;
+        double y = (e.getY() - mundo.getCamera().getTAMANHOY()/2) * 2.08;
+        
+        switch (e.getButton()) {
+            case MouseEvent.BUTTON1: {
+                if (objSelecionado == null) {
+                    if (existePoligono(x, y)) {
+                        objSelecionado.getBbox().desenharOpenGLBBox(gl);
+                        glDrawable.display();
+                    } else {
+                        objSelecionado = new ObjetoGrafico();
 
-                case MouseEvent.BUTTON3: {
-                    objSelecionado.TrocaPrimitiva(desenhaLoop, false);
-                    objSelecionado.setPronto();
-                    objSelecionado.getBbox().desenharOpenGLBBox(gl);
-                    objSelecionado = null;
-                    break;
+                        objSelecionado.TrocaPrimitiva(desenhaLoop, false);
+                        objSelecionado.AdicionaPonto(x, y);
+                        objSelecionado.atribuirGL(gl);
+
+                        mundo.getListaObjGrafico().add(objSelecionado);
+                        glDrawable.display();
+                    }
+                } else {
+                    if(!objSelecionado.isPronto()){
+                        objSelecionado.TrocaPrimitiva(desenhaLoop, false);
+                        objSelecionado.AdicionaPonto(x, y);
+                        glDrawable.display();
+                    }
                 }
+                break;
             }
-                    glDrawable.display();
+            case MouseEvent.BUTTON3: {
+                if (objSelecionado != null) {
+                    if (!objSelecionado.isPronto()) {
+                        objSelecionado.TrocaPrimitiva(desenhaLoop, false);
+                        objSelecionado.setPronto();
+                        objSelecionado.getBbox().desenharOpenGLBBox(gl);
+                        objSelecionado = null;
+                    } else {
+                        objSelecionado = null;
+                    }
+                }
+                break;
+            }
 
         }
-        else {
-            objSelecionado = new ObjetoGrafico();
-            int y = e.getY();
-            int x = e.getX();
+                    glDrawable.display();
+        
+        
             
-            objSelecionado.TrocaPrimitiva(desenhaLoop, false);
-            objSelecionado.AdicionaPonto((x - mundo.getCamera().getTAMANHOX()/2)* 2.08, (y - mundo.getCamera().getTAMANHOY()/2)* 2.08);
-            objSelecionado.atribuirGL(gl);
-            
-            mundo.getListaObjGrafico().add(objSelecionado);
-            glDrawable.display();
-        }
+        
+//        if (objSelecionado != null) {
+//            switch (e.getButton()) {
+//                case MouseEvent.BUTTON1: {
+//                    objSelecionado.TrocaPrimitiva(desenhaLoop, false);
+//                    objSelecionado.AdicionaPonto(x, y);
+//                    break;
+//                }
+//
+//                case MouseEvent.BUTTON3: {
+//                    objSelecionado.TrocaPrimitiva(desenhaLoop, false);
+//                    objSelecionado.setPronto();
+//                    objSelecionado.getBbox().desenharOpenGLBBox(gl);
+//                    objSelecionado = null;
+//                    break;
+//                }
+//            }
+//
+//        }
+       
         
         
 //	    if ((e.getModifiers() & e.BUTTON1_MASK) != 0) {
@@ -277,11 +319,27 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 //        System.out.println("---------------------");
 //        
         
-        if (objSelecionado != null) {
+        if (objSelecionado != null && !objSelecionado.isPronto()) {
             objSelecionado.getVertices().getLast().atribuirX((e.getX() - mundo.getCamera().getTAMANHOX()/2) * 2.08);
             objSelecionado.getVertices().getLast().atribuirY((e.getY() - mundo.getCamera().getTAMANHOY()/2) * 2.08);
             glDrawable.display();
         }
     }
 
+    public boolean existePoligono(double x, double y) {
+        LinkedList<ObjetoGrafico> listaObj = mundo.getListaObjGrafico();
+        
+        for (int i = 0; i < listaObj.size(); i++) {
+            BoundingBox bbox = listaObj.get(i).getBbox();
+            
+            if(x <= bbox.obterMaiorX() && x >= bbox.obterMenorX() &&
+               y <= bbox.obterMaiorY() && y >= bbox.obterMenorY()){
+                
+                objSelecionado = listaObj.get(i);
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }
