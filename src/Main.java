@@ -80,91 +80,127 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 		gl.glEnd();
 	}
 	
-	public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
 
-		switch (e.getKeyCode()) {
-//		case KeyEvent.VK_P:
-//			objetos[0].exibeVertices();
-//			break;
-//		case KeyEvent.VK_M:
-//			objetos[0].exibeMatriz();
-//			break;
-//
-//		case KeyEvent.VK_R:
-//			objetos[0].atribuirIdentidade();
-//			break;
-//
-//		case KeyEvent.VK_RIGHT:
-//			objetos[0].translacaoXYZ(2.0,0.0,0.0);
-//			break;
-//		case KeyEvent.VK_LEFT:
-//			objetos[0].translacaoXYZ(-2.0,0.0,0.0);
-//			break;
-//		case KeyEvent.VK_UP:
-//			objetos[0].translacaoXYZ(0.0,2.0,0.0);
-//			break;
-//		case KeyEvent.VK_DOWN:
-//			objetos[0].translacaoXYZ(0.0,-2.0,0.0);
-//			break;
-//
-//		case KeyEvent.VK_PAGE_UP:
-//			objetos[0].escalaXYZ(2.0,2.0);
-//			break;
-//		case KeyEvent.VK_PAGE_DOWN:
-//			objetos[0].escalaXYZ(0.5,0.5);
-//			break;
-//
-//		case KeyEvent.VK_HOME:
-////			objetos[0].RoracaoZ();
-//			break;
-//
-//		case KeyEvent.VK_1:
-//			objetos[0].escalaXYZPtoFixo(0.5, new Ponto4D(-15.0,-15.0,0.0,0.0));
-//			break;
-//			
-//		case KeyEvent.VK_2:
-//			objetos[0].escalaXYZPtoFixo(2.0, new Ponto4D(-15.0,-15.0,0.0,0.0));
-//			break;
-//			
-//                case KeyEvent.VK_3:
-//                        objetos[0].rotacaoZPtoFixo(10.0, new Ponto4D(-15.0,-15.0,0.0,0.0));
-//			break;
-//                        
-                case KeyEvent.VK_I:
-                        mundo.getCamera().zoomIn();
-                        break;
-                        
-                case KeyEvent.VK_O:
-                        mundo.getCamera().zoomOut();
-                        break;
-                
-                case KeyEvent.VK_W:
-                        mundo.getCamera().panBaixo();
-                        break;
-                        
-                case KeyEvent.VK_S:
-                        mundo.getCamera().panCima();
-                        break;
-                        
-                case KeyEvent.VK_A:
-                        mundo.getCamera().panDireita();
-                        break;
-                        
-                case KeyEvent.VK_D:
-                        mundo.getCamera().panEsquerda();
-                        break;
-                    
-                case KeyEvent.VK_SPACE:
-                    desenhaLoop = !desenhaLoop;
-                    if (objSelecionado != null) {
-                        desenhaLoop = !objSelecionado.getPrimitiva();
-                        objSelecionado.TrocaPrimitiva(desenhaLoop, true);
-                    }
-                    break;
-		}
-                
-		glDrawable.display();
-	}
+        switch (e.getKeyCode()) {
+
+            case KeyEvent.VK_DELETE:
+                if(objSelecionado != null){
+                    boolean resultado = mundo.getListaObjGrafico().remove(objSelecionado);
+                    objSelecionado = null;
+                    if(resultado){System.out.println("Obj removido!");}
+                    glDrawable.display();
+                }
+                break;
+            
+            case KeyEvent.VK_P:
+                if (objSelecionado != null) {
+                    objSelecionado.exibeVertices();
+                }
+                break;
+            case KeyEvent.VK_M:
+                if (objSelecionado != null) {
+                    objSelecionado.exibeMatriz();
+                }
+                break;
+
+            case KeyEvent.VK_R:
+                if (objSelecionado != null) {
+                    objSelecionado.atribuirIdentidade();
+                }
+                break;
+
+            case KeyEvent.VK_RIGHT:
+                if (objSelecionado != null) {
+                    objSelecionado.translacaoXYZ(2.0, 0.0, 0.0);
+                }
+                break;
+            case KeyEvent.VK_LEFT:
+                if (objSelecionado != null) {
+                    objSelecionado.translacaoXYZ(-2.0, 0.0, 0.0);
+                }
+                break;
+            case KeyEvent.VK_UP:
+                if (objSelecionado != null) {
+                    objSelecionado.translacaoXYZ(0.0, 2.0, 0.0);
+                }
+                break;
+            case KeyEvent.VK_DOWN:
+                if (objSelecionado != null) {
+                    objSelecionado.translacaoXYZ(0.0, -2.0, 0.0);
+                }
+                break;
+
+            case KeyEvent.VK_PAGE_UP:
+                if (objSelecionado != null) {
+                    objSelecionado.escalaXYZ(2.0, 2.0);
+                }
+                break;
+            case KeyEvent.VK_PAGE_DOWN:
+                if (objSelecionado != null) {
+                    objSelecionado.escalaXYZ(0.5, 0.5);
+                }
+                break;
+
+            case KeyEvent.VK_HOME:
+                if (objSelecionado != null) {
+//			objSelecionado.RoracaoZ();
+                }
+                break;
+
+            case KeyEvent.VK_1:
+                if (objSelecionado != null) {
+                    objSelecionado.escalaXYZPtoFixo(0.5, new Ponto4D(-15.0, -15.0, 0.0, 0.0));
+                }
+                break;
+
+            case KeyEvent.VK_2:
+                if (objSelecionado != null) {
+                    objSelecionado.escalaXYZPtoFixo(2.0, new Ponto4D(-15.0, -15.0, 0.0, 0.0));
+                }
+                break;
+
+            case KeyEvent.VK_3:
+                if (objSelecionado != null) {
+                    objSelecionado.rotacaoZPtoFixo(10.0, new Ponto4D(-15.0, -15.0, 0.0, 0.0));
+                }
+                break;
+
+            case KeyEvent.VK_I:
+                mundo.getCamera().zoomIn();
+                break;
+
+            case KeyEvent.VK_O:
+                mundo.getCamera().zoomOut();
+                break;
+
+            case KeyEvent.VK_W:
+                mundo.getCamera().panBaixo();
+                break;
+
+            case KeyEvent.VK_S:
+                mundo.getCamera().panCima();
+                break;
+
+            case KeyEvent.VK_A:
+                mundo.getCamera().panDireita();
+                break;
+
+            case KeyEvent.VK_D:
+                mundo.getCamera().panEsquerda();
+                break;
+
+            case KeyEvent.VK_SPACE:
+                desenhaLoop = !desenhaLoop;
+                if (objSelecionado != null) {
+                    desenhaLoop = !objSelecionado.getPrimitiva();
+                    objSelecionado.TrocaPrimitiva(desenhaLoop, true);
+                }
+                break;
+        }
+
+        glDrawable.display();
+    }
 
 	// metodo definido na interface GLEventListener.
 	// "render" feito depois que a janela foi redimensionada.
