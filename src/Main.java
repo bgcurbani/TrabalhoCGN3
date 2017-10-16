@@ -396,6 +396,13 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
         }
     }
 
+    /**
+     * Verifica se existe um poligono no ponto X e Y passados por parâmetro.
+     * 
+     * @param x Ponto no eixo X
+     * @param y Ponto no eixo Y
+     * @return Se existe ou não um poligono no local selecionado.
+     */
     public boolean existePoligono(double x, double y) {
         LinkedList<ObjetoGrafico> listaObj = mundo.getListaObjGrafico();
         
