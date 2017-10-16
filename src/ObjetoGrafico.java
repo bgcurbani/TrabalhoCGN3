@@ -29,22 +29,43 @@ public final class ObjetoGrafico {
     private static Transformacao4D matrizGlobal = new Transformacao4D();
 //	private double anguloGlobal = 0.0;
 
+    /**
+     * Construtor da classe ObjetoGrafico que cria uma LinkedList de vértices.
+     */
     public ObjetoGrafico() {
         vertices = new LinkedList();
     }
 
+    /**
+     * Atribui a instância do GL. 
+     * 
+     * @param gl instância do GL
+     */
     public void atribuirGL(GL gl) {
         this.gl = gl;
     }
 
+    /**
+     * Retorna o tamanho do vértice.
+     * 
+     * @return Tamanho do vértice em double.
+     */
     public double obterTamanho() {
         return tamanho;
     }
 
+    /**
+     * Retorna a primitiva atual.
+     * 
+     * @return Primitiva atualmente selecionada.
+     */
     public double obterPrimitava() {
         return primitiva;
     }
 
+    /**
+     * Desenha o vértice.
+     */
     public void desenha() {
         gl.glColor3f(red, green, blue);
         gl.glLineWidth(tamanho);
@@ -66,15 +87,30 @@ public final class ObjetoGrafico {
         gl.glPopMatrix();
     }
 
+    /**
+     * Cria um objeto gráfico filho.
+     */
     public void criaFilho() {
         objFilho = new ObjetoGrafico();
         objFilho.atribuirGL(gl);
     }
     
+    /**
+     * Retona o objeto filho atual.
+     * 
+     * @return ObjetoGrafico filho.
+     */
     public ObjetoGrafico getObjFilho(){
         return objFilho;
     }
         
+    /**
+     * Define a cor do objeto gráfico.
+     * 
+     * @param r Cor vermelha.
+     * @param g Cor verde.
+     * @param b Cor azul.
+     */
     public void setColor(float r, float g, float b){
         this.red = r;
         this.green = g;
@@ -82,12 +118,25 @@ public final class ObjetoGrafico {
         
     }
     
+    /**
+     * Define a translação do objeto gráfico.
+     * 
+     * @param tx Translação no eixo X.
+     * @param ty Translação no eixo Y.
+     * @param tz Translação no eixo Z.
+     */
     public void translacaoXYZ(double tx, double ty, double tz) {
         Transformacao4D matrizTranslate = new Transformacao4D();
         matrizTranslate.atribuirTranslacao(tx,ty,tz);
         matrizObjeto = matrizTranslate.transformMatrix(matrizObjeto);		
     }
 
+    /**
+     * Define a escala do objeto gráfico.
+     * 
+     * @param Sx Escala no eixo X.
+     * @param Sy Escala no eixo Y.
+     */
     public void escalaXYZ(double Sx,double Sy) {
         Transformacao4D matrizScale = new Transformacao4D();		
         matrizScale.atribuirEscala(Sx,Sy,1.0);
@@ -102,11 +151,20 @@ public final class ObjetoGrafico {
         //matrizObjeto = matrizRotacaoZ.transformMatrix(matrizObjeto);
     }
 
+    /**
+     * Atribui a identidade ao objeto gráfico.
+     */
     public void atribuirIdentidade() {
 //		anguloGlobal = 0.0;
             matrizObjeto.atribuirIdentidade();
     }
 
+    /**
+     * Define a escala do objeto gráfico baseado em um ponto fixo.
+     * 
+     * @param escala Tamanho da escala.
+     * @param ptoFixo Ponto fixo usado como base para a escala.
+     */
     public void escalaXYZPtoFixo(double escala, Ponto4D ptoFixo) {
         matrizGlobal.atribuirIdentidade();
 
@@ -125,6 +183,12 @@ public final class ObjetoGrafico {
         matrizObjeto = matrizObjeto.transformMatrix(matrizGlobal);
     }
 
+    /**
+     * Rotaciona o objeto gráfico baseado em um ponto fixo.
+     * 
+     * @param angulo Ângulo da rotação.
+     * @param ptoFixo Ponto fixo usado como base para a rotação.
+     */
     public void rotacaoZPtoFixo(double angulo, Ponto4D ptoFixo) {
         matrizGlobal.atribuirIdentidade();
 
@@ -142,10 +206,16 @@ public final class ObjetoGrafico {
         matrizObjeto = matrizObjeto.transformMatrix(matrizGlobal);
     }
 
+    /**
+     * Exibe a matriz de objetos.
+     */
     public void exibeMatriz() {
         matrizObjeto.exibeMatriz();
     }
 
+    /**
+     * Exibe os vértices de um objeto gráfico.
+     */
     public void exibeVertices() {
         for (int i = 0; i < vertices.size(); i++) {
             System.out.println("P"+i+"[" + vertices.get(i).obterX() + ",\t" + vertices.get(i).obterY() + ",\t" + vertices.get(i).obterZ() + ",\t" + vertices.get(i).obterW() + "]");
@@ -157,6 +227,12 @@ public final class ObjetoGrafico {
 //        System.out.println("anguloGlobal:" + anguloGlobal);
     }
 
+    /**
+     * Adiciona um ponto ao objeto gráfico.
+     * 
+     * @param x Posição do ponto no eixo X.
+     * @param y Posição do ponto no eixo Y.
+     */
     public void AdicionaPonto(double x, double y) {
         Ponto4D ponto = new Ponto4D();
         Ponto4D ponto2 = new Ponto4D();
@@ -176,6 +252,12 @@ public final class ObjetoGrafico {
           }
     }
 
+    /**
+     * Troca a primitiva do objeto gráfico.
+     * 
+     * @param desenhaLoop Se é ou não para finalizar o loop do objeto.
+     * @param fecha Se é o último ponto adicionado ao objeto gráfico.
+     */
     public void TrocaPrimitiva(boolean desenhaLoop, boolean fecha) {
         ehLineLoop = desenhaLoop;
         
@@ -185,6 +267,9 @@ public final class ObjetoGrafico {
             this.primitiva = GL.GL_LINE_STRIP;
     }
 
+    /**
+     * Finaliza o objeto gráfico.
+     */
     public void setPronto() {
         if(vertices.size() >= 3 && this.ehLineLoop){
             TrocaPrimitiva(ehLineLoop, true);
@@ -193,22 +278,45 @@ public final class ObjetoGrafico {
         criaBBox();
     }
 
+    /**
+     * Retorna a lista de vértices do objeto gráfico.
+     * 
+     * @return LinkedList contendo os vértices do objeto gráfico.
+     */
     public LinkedList<Ponto4D> getVertices() {
         return vertices;
     }
 
+    /**
+     * Retorna a primitiva atual do objeto gráfico.
+     * 
+     * @return boolean dizendo se é LineLoop(1) ou LineStrip(0). 
+     */
     public boolean getPrimitiva(){
         return ehLineLoop;
     }
     
+    /**
+     * Retorna se true se o objeto grafico é um ponto.
+     * 
+     * @return true se o objeto é apenas um ponto, false caso tenha mais vértices.
+     */
     public boolean isPronto(){
         return isPronto;
     }
     
+    /**
+     * Retorna a BoundingBox do objeto gráfico.
+     * 
+     * @return BoundingBox do objeto gráfico.
+     */
     public BoundingBox getBbox(){
         return bBox;
     }
     
+    /**
+     * Criar a BoundingBox do objeto gráfico.
+     */
     private void criaBBox() {
         double menorX, maiorX;
         double menorY, maiorY;
