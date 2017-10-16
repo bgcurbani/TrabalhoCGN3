@@ -12,6 +12,9 @@ public class Frame extends JFrame{
 	
 	private int janelaLargura  = 400, janelaAltura = 400;
 	
+        /**
+         * Cria a janela do aplicativo.
+         */
 	public Frame() {		
 		// Cria o frame.
 		super("CG-N3-Trabalho");   
@@ -40,6 +43,11 @@ public class Frame extends JFrame{
 		canvas.requestFocus();			
 	}		
 	
+        /**
+         * Cria o frame e o define como visível.
+         * 
+         * @param args 
+         */
 	public static void main(String[] args) {
 		new Frame().setVisible(true);
 	}
