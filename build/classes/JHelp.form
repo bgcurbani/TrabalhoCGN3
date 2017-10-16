@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="652" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="402" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea1">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="Sem objeto selecionado:&#xa;Mouse esquerdo: Verifica exist&#xea;ncia de objeto, se existir ir&#xe1; seleciona-lo.  &#xa;Caso n&#xe3;o exista, ser&#xe1; criado um novo objeto gr&#xe1;frico.&#xa;F1: Exibe essa tela.&#xa;&#xa;Com objeto selecionado:&#xa;Mouse direito: Remove sele&#xe7;&#xe3;o do objeto.&#xa;Delete: Remove o objeto selecionado.&#xa;Setas: Movem o poligono selecionado para a dire&#xe7;&#xe3;o respectiva.&#xa;V: Retorna o pologono para a sua posi&#xe7;&#xe3;o inicial sem as transforma&#xe7;&#xf5;es.&#xa;F: Cria poligono filho do poligono selecionado.&#xa;Espa&#xe7;o: Troca a primitiva do poligono entre poligono aberto e poligono fechado.&#xa;1: Reduz o tamanho do poligono pela metade em rela&#xe7;&#xe3;o ao centro da sua Bbox.&#xa;2: Dobra o tamanho do poligono em rela&#xe7;&#xe3;o ao centor da sua Bbox.&#xa;3: Rotaciona o poligono em 10 graus em rela&#xe7;&#xe3;o ao centro da sua Bbox.&#xa;R: Altera a cor do poligono para vermelho.&#xa;G: Altera a cor do poligono para verde.&#xa;B: Altera a cor do poligono para azul.&#xa;T: Altera a cor do poligono para preto.&#xa;P: Exibe os vertices do poligono selecionado.&#xa;M: Exibe a matriz do poligono selecionado.&#xa;"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>
