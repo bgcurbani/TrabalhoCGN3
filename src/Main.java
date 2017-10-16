@@ -209,7 +209,7 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
                 break;
                 
             case KeyEvent.VK_F:
-                if(objSelecionado != null && objSelecionado.getVertices().size()>0){
+                if(objSelecionado != null && objSelecionado.getVertices().size()>0 && objSelecionado.getObjFilho() == null){
                     objSelecionado.criaFilho();
                     objSelecionado = objSelecionado.getObjFilho();
                     objSelecionado.TrocaPrimitiva(desenhaLoop, false);
