@@ -11,7 +11,7 @@
 public class JHelp extends javax.swing.JFrame {
 
     /**
-     * Creates new form JHelp
+     * Cria uma nova form JHelp.
      */
     public JHelp() {
         initComponents();
@@ -19,6 +19,9 @@ public class JHelp extends javax.swing.JFrame {
         this.setTitle("Manual");
     }
 
+    /**
+    * Define a aparência da janela de help baseado no sistema operacional.
+    */
     private void setAparencia() {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
