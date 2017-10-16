@@ -72,12 +72,16 @@ public class JHelp extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(500, 410));
+        setMinimumSize(new java.awt.Dimension(500, 410));
+        setName("Manual"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(500, 410));
+        setResizable(false);
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Sem objeto selecionado:\nMouse esquerdo: Verifica existência de objeto, se existir irá seleciona-lo.  \nCaso não exista, será criado um novo objeto gráfrico.\nF1: Exibe essa tela.\n\nCom objeto selecionado:\nMouse direito: Remove seleção do objeto.\nDelete: Remove o objeto selecionado.\nSetas: Movem o poligono selecionado para a direção respectiva.\nV: Retorna o pologono para a sua posição inicial sem as transformações.\nF: Cria poligono filho do poligono selecionado.\nEspaço: Troca a primitiva do poligono entre poligono aberto e poligono fechado.\n1: Reduz o tamanho do poligono pela metade em relação ao centro da sua Bbox.\n2: Dobra o tamanho do poligono em relação ao centor da sua Bbox.\n3: Rotaciona o poligono em 10 graus em relação ao centro da sua Bbox.\nR: Altera a cor do poligono para vermelho.\nG: Altera a cor do poligono para verde.\nB: Altera a cor do poligono para azul.\nT: Altera a cor do poligono para preto.\nP: Exibe os vertices do poligono selecionado.\nM: Exibe a matriz do poligono selecionado..\n");
+        jTextArea1.setText("\tSem objeto selecionado:\nMouse esquerdo: Verifica existência de objeto, se existir irá seleciona-lo.  \nCaso não exista, será criado um novo objeto gráfrico.\nF1: Exibe essa tela.\n\n\tCom objeto selecionado:\nMouse direito: Remove seleção do objeto.\nDelete: Remove o objeto selecionado.\nSetas: Movem o poligono selecionado para a direção respectiva.\nV: Retorna o pologono para a sua posição inicial sem as transformações.\nF: Cria poligono filho do poligono selecionado.\nEspaço: Troca a primitiva do poligono entre poligono aberto e poligono fechado.\n1: Reduz o tamanho do poligono pela metade em relação ao centro da sua Bbox.\n2: Dobra o tamanho do poligono em relação ao centor da sua Bbox.\n3: Rotaciona o poligono em 10 graus em relação ao centro da sua Bbox.\nR: Altera a cor do poligono para vermelho.\nG: Altera a cor do poligono para verde.\nB: Altera a cor do poligono para azul.\nT: Altera a cor do poligono para preto.\nP: Exibe os vertices do poligono selecionado.\nM: Exibe a matriz do poligono selecionado..\n");
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -86,14 +90,14 @@ public class JHelp extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

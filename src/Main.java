@@ -16,6 +16,7 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 	private GLU glu;
 	private GLAutoDrawable glDrawable;
         private boolean desenhaLoop = false;
+        private JHelp janelaHelp;
 
 //	private ObjetoGrafico objeto = new ObjetoGrafico();
 //	private ObjetoGrafico[] objetos = {
@@ -231,6 +232,12 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
                     objSelecionado.TrocaPrimitiva(desenhaLoop, true);
                 }
                 break;
+                
+            case KeyEvent.VK_F1:
+                if(janelaHelp == null){
+                    janelaHelp = new JHelp();
+                }
+                    janelaHelp.setVisible(true);
         }
 
         glDrawable.display();
