@@ -168,19 +168,22 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 
             case KeyEvent.VK_1:
                 if (objSelecionado != null) {
-                    objSelecionado.escalaXYZPtoFixo(0.5, new Ponto4D(-15.0, -15.0, 0.0, 0.0));
+//                    objSelecionado.escalaXYZPtoFixo(0.5, new Ponto4D(-15.0, -15.0, 0.0, 0.0));
+                    objSelecionado.escalaXYZPtoFixo(0.5, objSelecionado.getBbox().obterCentro());
                 }
                 break;
 
             case KeyEvent.VK_2:
                 if (objSelecionado != null) {
-                    objSelecionado.escalaXYZPtoFixo(2.0, new Ponto4D(-15.0, -15.0, 0.0, 0.0));
+//                    objSelecionado.escalaXYZPtoFixo(2.0, new Ponto4D(-15.0, -15.0, 0.0, 0.0));
+                    objSelecionado.escalaXYZPtoFixo(2.0, objSelecionado.getBbox().obterCentro());
                 }
                 break;
 
             case KeyEvent.VK_3:
                 if (objSelecionado != null) {
-                    objSelecionado.rotacaoZPtoFixo(10.0, new Ponto4D(-15.0, -15.0, 0.0, 0.0));
+//                    objSelecionado.rotacaoZPtoFixo(10.0, new Ponto4D(-15.0, -15.0, 0.0, 0.0));
+                    objSelecionado.rotacaoZPtoFixo(10.0, objSelecionado.getBbox().obterCentro());
                 }
                 break;
 

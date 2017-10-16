@@ -110,6 +110,8 @@ public final class ObjetoGrafico {
     public void escalaXYZPtoFixo(double escala, Ponto4D ptoFixo) {
         matrizGlobal.atribuirIdentidade();
 
+        //Adicionando essa troca de sinal fez funcionar(?)
+        ptoFixo.inverterSinal(ptoFixo);
         matrizTmpTranslacao.atribuirTranslacao(ptoFixo.obterX(),ptoFixo.obterY(),ptoFixo.obterZ());
         matrizGlobal = matrizTmpTranslacao.transformMatrix(matrizGlobal);
 
@@ -119,13 +121,14 @@ public final class ObjetoGrafico {
         ptoFixo.inverterSinal(ptoFixo);
         matrizTmpTranslacaoInversa.atribuirTranslacao(ptoFixo.obterX(),ptoFixo.obterY(),ptoFixo.obterZ());
         matrizGlobal = matrizTmpTranslacaoInversa.transformMatrix(matrizGlobal);
-
+        
         matrizObjeto = matrizObjeto.transformMatrix(matrizGlobal);
     }
 
     public void rotacaoZPtoFixo(double angulo, Ponto4D ptoFixo) {
         matrizGlobal.atribuirIdentidade();
 
+        ptoFixo.inverterSinal(ptoFixo);
         matrizTmpTranslacao.atribuirTranslacao(ptoFixo.obterX(),ptoFixo.obterY(),ptoFixo.obterZ());
         matrizGlobal = matrizTmpTranslacao.transformMatrix(matrizGlobal);
 
@@ -145,7 +148,7 @@ public final class ObjetoGrafico {
 
     public void exibeVertices() {
         for (int i = 0; i < vertices.size(); i++) {
-            System.out.println("P"+i+"[" + vertices.get(i).obterX() + "," + vertices.get(i).obterY() + "," + vertices.get(i).obterZ() + "," + vertices.get(i).obterW() + "]");
+            System.out.println("P"+i+"[" + vertices.get(i).obterX() + ",\t" + vertices.get(i).obterY() + ",\t" + vertices.get(i).obterZ() + ",\t" + vertices.get(i).obterW() + "]");
         }
 //        System.out.println("P0[" + vertices[0].obterX() + "," + vertices[0].obterY() + "," + vertices[0].obterZ() + "," + vertices[0].obterW() + "]");
 //        System.out.println("P1[" + vertices[1].obterX() + "," + vertices[1].obterY() + "," + vertices[1].obterZ() + "," + vertices[1].obterW() + "]");
