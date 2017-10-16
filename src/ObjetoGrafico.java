@@ -10,6 +10,9 @@ public final class ObjetoGrafico {
     private BoundingBox bBox = null;
     private boolean ehLineLoop;
     private boolean isPronto=false;
+    private float red = 0;
+    private float green = 0;
+    private float blue = 0;
 
 
 //	private int primitiva = GL.GL_POINTS;
@@ -42,7 +45,7 @@ public final class ObjetoGrafico {
     }
 
     public void desenha() {
-        gl.glColor3f(0.0f, 0.0f, 0.0f);
+        gl.glColor3f(red, green, blue);
         gl.glLineWidth(tamanho);
         gl.glPointSize(tamanho);
 
@@ -59,6 +62,13 @@ public final class ObjetoGrafico {
         gl.glPopMatrix();
     }
 
+    public void setColor(float r, float g, float b){
+        this.red = r;
+        this.green = g;
+        this.blue = b;
+        
+    }
+    
     public void translacaoXYZ(double tx, double ty, double tz) {
         Transformacao4D matrizTranslate = new Transformacao4D();
         matrizTranslate.atribuirTranslacao(tx,ty,tz);
@@ -121,6 +131,9 @@ public final class ObjetoGrafico {
     }
 
     public void exibeVertices() {
+        for (int i = 0; i < vertices.size(); i++) {
+            System.out.println("P"+i+"[" + vertices.get(i).obterX() + "," + vertices.get(i).obterY() + "," + vertices.get(i).obterZ() + "," + vertices.get(i).obterW() + "]");
+        }
 //        System.out.println("P0[" + vertices[0].obterX() + "," + vertices[0].obterY() + "," + vertices[0].obterZ() + "," + vertices[0].obterW() + "]");
 //        System.out.println("P1[" + vertices[1].obterX() + "," + vertices[1].obterY() + "," + vertices[1].obterZ() + "," + vertices[1].obterW() + "]");
 //        System.out.println("P2[" + vertices[2].obterX() + "," + vertices[2].obterY() + "," + vertices[2].obterZ() + "," + vertices[2].obterW() + "]");
@@ -218,8 +231,8 @@ public final class ObjetoGrafico {
             
         }
         
-        bBox = new BoundingBox(menorX, menorY, menorZ, maiorX, maiorY, maiorZ);
-        bBox.processarCentroBBox();
+            bBox = new BoundingBox(menorX, menorY, menorZ, maiorX, maiorY, maiorZ);
+            bBox.processarCentroBBox();
 
     }
 

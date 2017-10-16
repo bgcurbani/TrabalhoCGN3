@@ -93,6 +93,24 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
                 }
                 break;
             
+            case KeyEvent.VK_R:
+                if(objSelecionado != null){
+                    objSelecionado.setColor(1.0f, 0.0f, 0.0f);
+                }
+                break;
+                
+            case KeyEvent.VK_G:
+                if(objSelecionado != null){
+                    objSelecionado.setColor(0.0f, 1.0f, 0.0f);
+                }
+                break;
+                
+            case KeyEvent.VK_B:
+                if(objSelecionado != null){
+                    objSelecionado.setColor(0.0f, 0.0f, 1.0f);
+                }
+                break;
+                
             case KeyEvent.VK_P:
                 if (objSelecionado != null) {
                     objSelecionado.exibeVertices();
@@ -104,7 +122,7 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
                 }
                 break;
 
-            case KeyEvent.VK_R:
+            case KeyEvent.VK_V:
                 if (objSelecionado != null) {
                     objSelecionado.atribuirIdentidade();
                 }
@@ -122,12 +140,12 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
                 break;
             case KeyEvent.VK_UP:
                 if (objSelecionado != null) {
-                    objSelecionado.translacaoXYZ(0.0, 2.0, 0.0);
+                    objSelecionado.translacaoXYZ(0.0, -2.0, 0.0);
                 }
                 break;
             case KeyEvent.VK_DOWN:
                 if (objSelecionado != null) {
-                    objSelecionado.translacaoXYZ(0.0, -2.0, 0.0);
+                    objSelecionado.translacaoXYZ(0.0, 2.0, 0.0);
                 }
                 break;
 
