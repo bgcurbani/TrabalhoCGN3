@@ -20,17 +20,24 @@ import java.lang.Math;
 public final class Transformacao4D {
 	static final double DEG_TO_RAD = 0.017453292519943295769236907684886;
 
-    /// \brief Cria uma matriz de Trasnformacao com uma matriz Identidade.
+        /**
+         * Cria uma matriz de Trasnformacao com uma matriz Identidade.
+         */
 	private double[] matriz = {	
 			1, 0, 0, 0,
 			0, 1, 0, 0,
 			0, 0, 1, 0,
 			0, 0, 0, 1};
 
+        /**
+         * Construtor vazio da Transformação 4D.
+         */
 	public Transformacao4D() {
 	}
 
-	/// Atribui os valores de uma matriz Identidade a matriz de Transformacao.
+        /**
+         * Atribui os valores de uma matriz Identidade a matriz de Transformacao.
+         */
 	public void atribuirIdentidade() {
 		for (int i=0; i<16; ++i) {
 			matriz[i] = 0.0;
@@ -38,8 +45,14 @@ public final class Transformacao4D {
 		matriz[0] = matriz[5] = matriz[10] = matriz[15] = 1.0;
 	}
 
-	/// Atribui os valores de Translacao (tx,ty,tz) a matriz de Transformacao.
-	/// Elemento Neutro eh 0 (zero).
+        /**
+         * Atribui os valores de Translacao (tx,ty,tz) a matriz de Transformacao.
+         * Elemento Neutro eh 0 (zero).
+         * 
+         * @param tx Translação no eixo X.
+         * @param ty Translação no eixo Y.
+         * @param tz Translação no eixo Z.
+         */
 	public void atribuirTranslacao(double tx, double ty, double tz)
 	{
 	    atribuirIdentidade();
@@ -48,9 +61,15 @@ public final class Transformacao4D {
 	    matriz[14] = tz;
 	}
 
-	/// Atribui o valor de Escala (Ex,Ey,Ez) a matriz de Transformacao.
-	/// Elemento Neutro eh 1 (um).
-	/// Se manter os valores iguais de Ex,Ey e Ez o objeto vai ser reduzido ou ampliado proporcionalmente.
+        /**
+         * Atribui o valor de Escala (Ex,Ey,Ez) a matriz de Transformacao.
+         * Elemento Neutro eh 1 (um).
+         * Se manter os valores iguais de Ex,Ey e Ez o objeto vai ser reduzido ou ampliado proporcionalmente.
+         * 
+         * @param sX Escala do eixo X.
+         * @param sY Escala do eixo Y.
+         * @param sZ Escala do eixo Z.
+         */
 	public void atribuirEscala(double sX, double sY, double sZ)
 	{
 	    atribuirIdentidade();
@@ -59,8 +78,12 @@ public final class Transformacao4D {
 	    matriz[10] = sZ;
 	}
 	
-	/// Atribui o valor de Rotacao (angulo) no eixo X a matriz de Transformacao.
-	/// Elemento Neutro eh 0 (zero).
+        /**
+         * Atribui o valor de Rotacao (angulo) no eixo X a matriz de Transformacao.
+         * Elemento Neutro eh 0 (zero).
+         * 
+         * @param radians Raio de rotação no eixo X.
+         */
 	public void atribuirRotacaoX(double radians)
 	{
 	    atribuirIdentidade();
@@ -70,8 +93,12 @@ public final class Transformacao4D {
 	    matriz[10] =  Math.cos(radians);
 	}
 
-	/// Atribui o valor de Rotacao (angulo) no eixo Y a matriz de Transformacao.
-	/// Elemento Neutro eh 0 (zero).
+        /**
+         * Atribui o valor de Rotacao (angulo) no eixo Y a matriz de Transformacao.
+         * Elemento Neutro eh 0 (zero).
+         * 
+         * @param radians Raio de rotação no eixo Y.
+         */
 	public void atribuirRotacaoY(double radians)
 	{
 	    atribuirIdentidade();
@@ -81,8 +108,12 @@ public final class Transformacao4D {
 	    matriz[10] =  Math.cos(radians);
 	}
 
-	/// Atribui o valor de Rotacao (angulo) no eixo Z a matriz de Transformacao.
-	/// Elemento Neutro eh 0 (zero).
+        /**
+         * Atribui o valor de Rotacao (angulo) no eixo Z a matriz de Transformacao.
+         * Elemento Neutro eh 0 (zero).
+         * 
+         * @param radians Raio de rotação no eixo Z.
+         */
 	public void atribuirRotacaoZ(double radians)
 	{
 	    atribuirIdentidade();
@@ -92,6 +123,12 @@ public final class Transformacao4D {
 	    matriz[5] =  Math.cos(radians);
 	}
 
+        /**
+         * Cria uma transformação de um ponto passado por parâmetro baseado na matriz de transformação.
+         * 
+         * @param point Ponto usado como base para criar um ponto transformado.
+         * @return Ponto transformado a partir da matriz de transformação.
+         */
 	public Ponto4D transformPoint(Ponto4D point) {
 		Ponto4D pointResult = new Ponto4D(
 				matriz[0]*point.obterX()  + matriz[4]*point.obterY() + matriz[8]*point.obterZ()  + matriz[12]*point.obterW(),
@@ -101,6 +138,12 @@ public final class Transformacao4D {
 		return pointResult;
 	}
 
+        /**
+         * Cria uma transformação a partir de uma outra transformação.
+         * 
+         * @param t Transformação usada como base para criar a nova transformação.
+         * @return Transformação criada com base na transformação passado por parâmetro.
+         */
 	public Transformacao4D transformMatrix(Transformacao4D t) {
 		Transformacao4D result = new Transformacao4D();
 	    for (int i=0; i < 16; ++i)
@@ -110,18 +153,40 @@ public final class Transformacao4D {
 		return result;
 	}
 	
+        /**
+         * Retorna o elemento em um index determinado.
+         * 
+         * @param index Index para buscar o elemento.
+         * @return Elemento baseado no index passado.
+         */
 	public double GetElement(int index) {
 		return matriz[index];
 	}
 	
+        /**
+         * Altera um elemento em um determinado index.
+         * 
+         * @param index Index a ser alterado.
+         * @param value Valor que vai ser adicionado no index passado.
+         */
 	public void SetElement(int index, double value) {
 		matriz[index] = value;
 	}
 
+        /**
+         * Retorna a matriz da transformação.
+         * 
+         * @return matriz da transformação.
+         */
 	public double[] GetDate() {
 		return matriz;	
 	}
 	
+        /**
+         * Define a matriz da transformação.
+         * 
+         * @param data matriz da transformação.
+         */
 	public void SetData(double[] data)
 	{
 	    int i;
@@ -132,6 +197,9 @@ public final class Transformacao4D {
 	    }
 	}
 
+        /**
+         * Exibi a matriz de transformação.
+         */
 	public void exibeMatriz() {
 		System.out.println("______________________");
 		System.out.println("|" + GetElement( 0) + " | "+ GetElement( 4) + " | " + GetElement( 8) + " | "+ GetElement(12));
