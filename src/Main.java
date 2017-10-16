@@ -207,6 +207,14 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
             case KeyEvent.VK_D:
                 mundo.getCamera().panEsquerda();
                 break;
+                
+            case KeyEvent.VK_F:
+                if(objSelecionado != null && objSelecionado.getVertices().size()>0){
+                    objSelecionado.criaFilho();
+                    objSelecionado = objSelecionado.getObjFilho();
+                    objSelecionado.TrocaPrimitiva(desenhaLoop, false);
+                }
+                break;
 
             case KeyEvent.VK_SPACE:
                 desenhaLoop = !desenhaLoop;
@@ -373,7 +381,7 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
 //        System.out.println("---------------------");
 //        
         
-        if (objSelecionado != null && !objSelecionado.isPronto()) {
+        if (objSelecionado != null && !objSelecionado.isPronto() && objSelecionado.getVertices().size()>0) {
             objSelecionado.getVertices().getLast().atribuirX((e.getX() - mundo.getCamera().getTAMANHOX()/2) * 2.08);
             objSelecionado.getVertices().getLast().atribuirY((e.getY() - mundo.getCamera().getTAMANHOY()/2) * 2.08);
             glDrawable.display();

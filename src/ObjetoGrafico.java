@@ -13,6 +13,7 @@ public final class ObjetoGrafico {
     private float red = 0;
     private float green = 0;
     private float blue = 0;
+    private ObjetoGrafico objFilho = null;
 
 
 //	private int primitiva = GL.GL_POINTS;
@@ -58,10 +59,22 @@ public final class ObjetoGrafico {
         gl.glEnd();
 
             //////////// ATENCAO: chamar desenho dos filhos... 
+            if(objFilho != null && objFilho.getVertices().size()>0){
+                objFilho.desenha();
+            }
 
         gl.glPopMatrix();
     }
 
+    public void criaFilho() {
+        objFilho = new ObjetoGrafico();
+        objFilho.atribuirGL(gl);
+    }
+    
+    public ObjetoGrafico getObjFilho(){
+        return objFilho;
+    }
+        
     public void setColor(float r, float g, float b){
         this.red = r;
         this.green = g;
