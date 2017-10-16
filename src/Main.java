@@ -111,6 +111,11 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
                 }
                 break;
                 
+            case KeyEvent.VK_T:
+                if(objSelecionado != null){
+                    objSelecionado.setColor(0.0f, 0.0f, 0.0f);
+                }
+                break;
             case KeyEvent.VK_P:
                 if (objSelecionado != null) {
                     objSelecionado.exibeVertices();
