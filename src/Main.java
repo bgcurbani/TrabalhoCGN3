@@ -428,7 +428,6 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
                      if (objSelecionado != null) {
                         return true;
                     }
-                     return false;
                 }
             }
             
