@@ -13,7 +13,8 @@ public final class ObjetoGrafico {
     private float red = 0;
     private float green = 0;
     private float blue = 0;
-    private ObjetoGrafico objFilho = null;
+//    private ObjetoGrafico objFilho = null;
+    private LinkedList<ObjetoGrafico> objsFilhos = null;
 
 
 //	private int primitiva = GL.GL_POINTS;
@@ -74,34 +75,43 @@ public final class ObjetoGrafico {
         gl.glPushMatrix();
         gl.glMultMatrixd(matrizObjeto.GetDate(), 0);
         gl.glBegin(primitiva);
-        for (byte i=0; i < vertices.size(); i++) {
+        for (byte i = 0; i < vertices.size(); i++) {
             gl.glVertex2d(vertices.get(i).obterX(), vertices.get(i).obterY());
         }
         gl.glEnd();
 
-            //////////// ATENCAO: chamar desenho dos filhos... 
-            if(objFilho != null && objFilho.getVertices().size()>0){
-                objFilho.desenha();
+        //////////// ATENCAO: chamar desenho dos filhos... 
+        if (objsFilhos != null) {
+            for (int i = 0; i < objsFilhos.size(); i++) {
+                if (objsFilhos.get(i).getVertices().size() > 0) {
+                    objsFilhos.get(i).desenha();
+                }
             }
-
+        }
+        
         gl.glPopMatrix();
     }
 
     /**
      * Cria um objeto gráfico filho.
      */
-    public void criaFilho() {
-        objFilho = new ObjetoGrafico();
+    public ObjetoGrafico criaFilho() {
+        if(objsFilhos == null){
+            objsFilhos = new LinkedList();
+        }
+        ObjetoGrafico objFilho = new ObjetoGrafico();
         objFilho.atribuirGL(gl);
+        objsFilhos.add(objFilho);
+        return objFilho;
     }
     
     /**
-     * Retona o objeto filho atual.
+     * Retona a lista de filhos do objeto atual.
      * 
-     * @return ObjetoGrafico filho.
+     * @return LinkedList<ObjetoGrafico> objsFilhos.
      */
-    public ObjetoGrafico getObjFilho(){
-        return objFilho;
+    public LinkedList<ObjetoGrafico> getListaFilhos(){
+        return objsFilhos;
     }
         
     /**

@@ -218,9 +218,9 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
                 break;
                 
             case KeyEvent.VK_F:
-                if(objSelecionado != null && objSelecionado.getVertices().size()>0 && objSelecionado.getObjFilho() == null){
-                    objSelecionado.criaFilho();
-                    objSelecionado = objSelecionado.getObjFilho();
+                if(objSelecionado != null && objSelecionado.getVertices().size()>0){
+                    objSelecionado =objSelecionado.criaFilho();
+                    //Agora com o filho
                     objSelecionado.TrocaPrimitiva(desenhaLoop, false);
                 }
                 break;
@@ -414,16 +414,46 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
         LinkedList<ObjetoGrafico> listaObj = mundo.getListaObjGrafico();
         
         for (int i = 0; i < listaObj.size(); i++) {
-            BoundingBox bbox = listaObj.get(i).getBbox();
             
+            ObjetoGrafico objUso = listaObj.get(i);
+            BoundingBox bbox = objUso.getBbox();
             if(x <= bbox.obterMaiorX() && x >= bbox.obterMenorX() &&
                y <= bbox.obterMaiorY() && y >= bbox.obterMenorY()){
                 
-                objSelecionado = listaObj.get(i);
+                objSelecionado = objUso;
                 return true;
+            } else{
+                if (objUso.getListaFilhos() != null && objUso.getListaFilhos().size()>0){
+                     objSelecionado = existePoligonoFilho(objUso, x, y);
+                     if (objSelecionado != null) {
+                        return true;
+                    }
+                     return false;
+                }
             }
+            
         }
         return false;
     }
     
+    
+    private ObjetoGrafico existePoligonoFilho(ObjetoGrafico obj, double x, double y){
+        
+        for (int i = 0; i < obj.getListaFilhos().size(); i++) {
+            
+            ObjetoGrafico filho = obj.getListaFilhos().get(i);
+            BoundingBox bbox = filho.getBbox();
+            
+            if(x <= bbox.obterMaiorX() && x >= bbox.obterMenorX() &&
+               y <= bbox.obterMaiorY() && y >= bbox.obterMenorY()){
+                return filho;
+            } else {
+                if(filho.getListaFilhos() != null && filho.getListaFilhos().size()>0){
+                    return existePoligonoFilho(filho, x, y);
+                }
+            } 
+        }
+        
+        return null;
+    }
 }
