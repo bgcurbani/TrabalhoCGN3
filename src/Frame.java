@@ -21,6 +21,7 @@ public class Frame extends JFrame{
 		setBounds(300,250,janelaLargura,janelaAltura+22);  // 400 + 22 da borda do t�tulo da janela
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
+                setLocationRelativeTo(null);
 
 		/* Cria um objeto GLCapabilities para especificar 
 		 * o numero de bits por pixel para RGBA
