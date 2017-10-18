@@ -14,6 +14,7 @@ public final class ObjetoGrafico {
     private float green = 0;
     private float blue = 0;
 //    private ObjetoGrafico objFilho = null;
+    private ObjetoGrafico pai = null;
     private LinkedList<ObjetoGrafico> objsFilhos = null;
 
 
@@ -64,6 +65,17 @@ public final class ObjetoGrafico {
         return primitiva;
     }
 
+    public ObjetoGrafico getPai(){
+        return pai;
+    }
+    
+    public void setPai(ObjetoGrafico pai){
+        this.pai = pai;
+    }
+    
+    public boolean removeFilho(ObjetoGrafico filho) {
+        return objsFilhos.remove(filho);
+    }
     /**
      * Desenha o vértice.
      */
@@ -101,6 +113,8 @@ public final class ObjetoGrafico {
         }
         ObjetoGrafico objFilho = new ObjetoGrafico();
         objFilho.atribuirGL(gl);
+        objFilho.setPai(this);
+        
         objsFilhos.add(objFilho);
         return objFilho;
     }

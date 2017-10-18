@@ -86,12 +86,20 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
         switch (e.getKeyCode()) {
 
             case KeyEvent.VK_DELETE:
+                
                 if(objSelecionado != null){
-                    boolean resultado = mundo.getListaObjGrafico().remove(objSelecionado);
-                    objSelecionado = null;
-                    if(resultado){System.out.println("Obj removido!");}
-                    glDrawable.display();
+                    if(objSelecionado.getPai()==null){
+                        boolean resultado = mundo.getListaObjGrafico().remove(objSelecionado);
+                        objSelecionado = null;
+                        if(resultado){System.out.println("Obj removido!");}
+                    } else {
+                        boolean resultado = objSelecionado.getPai().removeFilho(objSelecionado);
+                        if(resultado){System.out.println("Obj filho removido!");}
+                        objSelecionado = null;
+                    }
                 }
+                
+                glDrawable.display();
                 break;
             
             case KeyEvent.VK_R:
