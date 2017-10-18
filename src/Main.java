@@ -54,7 +54,7 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
         gl.glLineWidth(1.0f);
         gl.glPointSize(1.0f);
 
-        desenhaSRU();
+//        desenhaSRU();
         for (byte i = 0; i < mundo.getListaObjGrafico().size(); i++) {
             mundo.getListaObjGrafico().get(i).desenha();
 //			objetos[i].desenha();
