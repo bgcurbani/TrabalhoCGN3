@@ -443,7 +443,14 @@ public class Main implements GLEventListener, KeyListener, MouseListener, MouseM
         return false;
     }
     
-    
+    /**
+     * Verifica se existe um poligno filho de um objeto gráfico na posição x e y.
+     * 
+     * @param obj objeto gráfico para varrer os filhos.
+     * @param x posição no eixo X.
+     * @param y posição no eixo Y.
+     * @return Caso exista um objeto gráfico ele é retornado, senão é retornado null.
+     */
     private ObjetoGrafico existePoligonoFilho(ObjetoGrafico obj, double x, double y){
         
         for (int i = 0; i < obj.getListaFilhos().size(); i++) {
