@@ -65,14 +65,30 @@ public final class ObjetoGrafico {
         return primitiva;
     }
 
+    /**
+     * Retorna o objeto gráfico pai do objeto atual.
+     * 
+     * @return Objeto pai do objeto atual.
+     */
     public ObjetoGrafico getPai(){
         return pai;
     }
     
+    /**
+     * Define o objeto gráfico pai do objeto atual.
+     * 
+     * @param pai objeto gráfico pai do objeto atual.
+     */
     public void setPai(ObjetoGrafico pai){
         this.pai = pai;
     }
     
+    /**
+     * Remove o objeto filho que foi passada por parâmetro da lista de filhos.
+     * 
+     * @param filho objeto filho a ser removido.
+     * @return retorna o objeto filho removido.
+     */
     public boolean removeFilho(ObjetoGrafico filho) {
         return objsFilhos.remove(filho);
     }
